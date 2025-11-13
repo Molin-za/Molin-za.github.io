@@ -88,6 +88,26 @@
             .sidebar {padding-top: 15px;}
             .sidebar a {font-size: 16px;}
         }
+
+                /* 页脚样式 */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 12px; /* 小字体 */
+            color: #666; /* 灰色字体，不抢眼 */
+            width: 100%;
+            margin-top: 50px; /* 与上部内容保持一定距离 */
+            box-sizing: border-box; /* 确保 padding 不会增加宽度 */
+        }
+
+        /* 确保主内容区域有足够的空间让页脚不重叠 */
+        #main {
+            padding: 20px;
+            margin-top: 50px; 
+            min-height: calc(100vh - 120px); /* 关键：确保内容区至少占满屏幕，为页脚腾出空间 */
+            transition: margin-left 0.5s; 
+        }
+
     </style>
 </head>
 <body>
@@ -97,22 +117,21 @@
 </div>
 
 <div id="mySidebar" class="sidebar">
-    <a href="#">🏠 主页面</a>
-    <a href="#">📝 记录</a>
-    <a href="#">😴 梦话</a>
-    <a href="#">📚 其他</a>
+    <a href="#"> 主页面</a>
+    <a href="#"> 记录</a>
+    <a href="#"> 梦话</a>
+    <a href="#"> 其他</a>
 </div>
 
 <div id="main">
     <h1>欢迎来到 Molin 的个人空间！</h1>
     <p>点击左上角的 ☰ 按钮来开启或关闭侧边栏。</p>
-    <p>这里将是你分享和记录的地方。你可以开始填充你的故事、想法和任何你想要展示的内容。</p>
-    <p>这个设计提供了更干净和现代的用户界面。当侧边栏打开时，主内容区域会向右移动。</p>
-    <p>段落 1: 这是一段占位文本，用于展示页面的基本布局。侧边栏的白色背景和顶部导航栏的白色背景现在统一，提供了一个更简洁的视觉体验。我们的目标是创建一个既美观又实用的个人网站。</p>
-    <p>段落 2: 响应式设计是现代网页不可或缺的一部分。虽然当前的布局相对简单，但我们已经考虑了侧边栏在不同屏幕尺寸下的表现。随着内容的增加，我们可能需要进一步优化布局以适应移动设备。</p>
-    <p>段落 3: 很高兴你能一步步地构建自己的在线空间。GitHub Pages 是一个非常强大的工具，能够免费托管你的静态网站。不断尝试和迭代是学习的最佳方式。</p>
-    <p>段落 4: 接下来，你可以考虑如何填充这些菜单项，比如为“记录”页面创建一个博客或者日记功能，或者在“梦话”页面分享一些有趣的思考。甚至可以考虑添加一些图片或者视频来丰富内容。</p>
 </div>
+
+<footer class="footer">
+    © 2025 Molin's Personal Space | Powered by GitHub Pages | <a href="#" style="color:#666; text-decoration: none;">联系我</a>
+</footer>
+
 
 <script>
     /* JavaScript 代码控制开关 */
