@@ -3,95 +3,90 @@
 <head>
     <title>Molin的个人空间</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        /* 基础样式 - 保留原有背景和字体 */
+        /* 基础样式 */
         body {
             margin: 0;
             height: 100vh; 
             background: linear-gradient(to bottom, #87CEEB, #FFFFFF); 
             font-family: Arial, sans-serif;
-            transition: margin-left 0.5s; /* 主内容区移动的动画 */
+            /* 整个 body 不需要过渡，因为我们将过渡放在了 main 和 footer 上 */
         }
 
         /* 顶部导航栏样式 */
         .top-navbar {
-            height: 50px; /* 白色条的高度 */
-            background-color: white; /* 白色背景 */
-            position: fixed; /* 固定在顶部 */
+            height: 50px; 
+            background-color: white; 
+            position: fixed; 
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 30; /* 确保在最顶层 */
-            display: flex; /* 使用 flex 布局 */
-            align-items: center; /* 垂直居中 */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 添加一点阴影，增加层次感 */
+            z-index: 30; 
+            display: flex; 
+            align-items: center; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
         }
 
-        /* 侧边栏样式 - 变为白色 */
+        /* 侧边栏样式 */
         .sidebar {
             height: 100%; 
             width: 0; 
             position: fixed; 
-            z-index: 20; /* 确保在主内容和背景上方，但在顶部导航下方 */
+            z-index: 20; /* 在主内容上方 */
             top: 0;
             left: 0;
-            background-color: white; /* 白色背景 */
+            background-color: white; 
             overflow-x: hidden; 
-            transition: 0.5s; 
-            padding-top: 50px; /* 顶部导航栏的高度，避免遮挡 */
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* 侧边栏的阴影 */
+            transition: 0.5s; /* 平滑过渡 */
+            padding-top: 50px; /* 避开顶部导航栏 */
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1); 
         }
 
-        /* 侧边栏中的链接样式 */
+        /* 侧边栏链接 */
         .sidebar a {
-            padding: 15px 8px 15px 32px; /* 增加上下 padding，更简洁 */
+            padding: 15px 8px 15px 32px; 
             text-decoration: none;
-            font-size: 18px; /* 字体稍微小一点，更精致 */
-            color: #333; /* 链接颜色变深 */
+            font-size: 18px; 
+            color: #333; 
             display: block;
             transition: 0.3s;
         }
 
-        /* 链接悬停效果 */
         .sidebar a:hover {
-            color: #007bff; /* 悬停时蓝色 */
-            background-color: #f0f0f0; /* 悬停时浅灰色背景 */
+            color: #007bff; 
+            background-color: #f0f0f0; 
         }
         
-        /* 开关侧边栏的简洁按钮样式 */
+        /* 开关按钮样式 */
         .openbtn {
-            font-size: 24px; /* 图标字体大小 */
+            font-size: 24px; 
             cursor: pointer;
-            background: none; /* 无背景 */
-            color: #333; /* 深色图标 */
-            padding: 0 15px; /* 调整内边距 */
-            border: none; /* 无边框 */
-            outline: none; /* 移除点击时的轮廓 */
-            height: 100%; /* 按钮高度与顶部导航栏一致 */
-            display: flex; /* 使得文本垂直居中 */
+            background: none; 
+            color: #333; 
+            padding: 0 15px; 
+            border: none; 
+            outline: none; 
+            height: 100%; 
+            display: flex; 
             align-items: center;
+            /* 按钮在 top-navbar 内部，确保它可点击 */
         }
 
         .openbtn:hover {
-            background-color: #f0f0f0; /* 悬停时浅灰色背景 */
+            background-color: #f0f0f0; 
         }
 
         /* 主内容区域 */
         #main {
             padding: 20px;
-            margin-top: 50px; /* 留出顶部导航栏的高度 */
-            transition: margin-left 0.5s; /* 同样添加过渡动画 */
+            margin-top: 50px; 
+            min-height: calc(100vh - 120px); /* 确保内容区不会被页脚遮挡 */
+            transition: margin-left 0.5s; /* 平滑过渡 */
         }
 
-        /* 响应式设计：当屏幕宽度较小时，侧边栏宽度可以小一点 */
-        @media screen and (max-height: 450px) {
-            .sidebar {padding-top: 15px;}
-            .sidebar a {font-size: 16px;}
-        }
-
-                /* 页脚样式 */
-        /* 页脚样式 - 修复：添加白色背景 */
-        .footer {
+        /* 页脚样式 */
+        #myFooter { /* 使用 ID 选择器，便于 JS 控制 */
             padding: 20px;
             text-align: center;
             font-size: 12px; 
@@ -99,41 +94,41 @@
             width: 100%;
             margin-top: 50px; 
             box-sizing: border-box; 
-            background-color: white; /* **新增：消除底部的蓝色** */
-            transition: margin-left 0.5s; /* **新增：让页脚也能平滑移动** */
+            background-color: white; /* 修复：去除底部蓝色 */
+            transition: margin-left 0.5s; /* 修复：平滑过渡 */
+            z-index: 10; /* 确保页脚在内容下方 */
         }
 
-
-        /* 确保主内容区域有足够的空间让页脚不重叠 */
-        #main {
-            padding: 20px;
-            margin-top: 50px; 
-            min-height: calc(100vh - 120px); /* 关键：确保内容区至少占满屏幕，为页脚腾出空间 */
-            transition: margin-left 0.5s; 
+        /* 响应式调整 */
+        @media screen and (max-width: 600px) {
+            .sidebar a {
+                font-size: 16px;
+            }
+            .sidebar {
+                padding-top: 60px; /* 移动端可以稍微调整 */
+            }
         }
-
     </style>
 </head>
 <body>
 
 <div class="top-navbar">
-    <button class="openbtn" onclick="toggleNav()">☰</button> <span style="font-size:20px; color:#333; margin-left:15px;">Molin的个人空间</span>
+    <button class="openbtn" onclick="toggleNav()">☰</button> 
+    <span style="font-size:20px; color:#333; margin-left:15px;">Molin的个人空间</span>
 </div>
 
 <div id="mySidebar" class="sidebar">
-    <a href="#"> 主页面</a>
-    <a href="#"> 记录</a>
-    <a href="#"> 梦话</a>
-    <a href="#"> 其他</a>
-</div>
+    <a href="index.html">🏠 主页面</a>
+    <a href="#">📝 记录</a> <a href="#">😴 梦话</a> <a href="#">📚 其他</a> </div>
 
 <div id="main">
     <h1>欢迎来到 Molin 的个人空间！</h1>
     <p>点击左上角的 ☰ 按钮来开启或关闭侧边栏。</p>
+    <p>网站架构已完成，下一步就是填充你的精彩内容了！</p>
 </div>
 
 <footer id="myFooter" class="footer">
-    © 2025 Molin's Personal Space | Powered by GitHub Pages | <a href="#" style="color:#666; text-decoration: none;">Love</a>
+    © 2025 Molin's Personal Space | Powered by GitHub Pages | <a href="#" style="color:#666; text-decoration: none;">联系我</a>
 </footer>
 
 
@@ -142,21 +137,19 @@
     function toggleNav() {
         const sidebar = document.getElementById("mySidebar");
         const main = document.getElementById("main");
-        const footer = document.getElementByID("myFooter");
-        const sidebarWidth = '250px'; // 侧边栏打开时的宽度
+        const footer = document.getElementById("myFooter"); // 获取页脚
+        const sidebarWidth = '250px'; 
 
-        // 检查侧边栏当前的宽度
         if (sidebar.style.width === sidebarWidth) {
-            // 如果是打开状态，就关闭它
+            // 关闭状态
             sidebar.style.width = '0';
             main.style.marginLeft = '0';
-            footer.style.marginLeft = '0';
+            footer.style.marginLeft = '0'; // 确保页脚也归位
         } else {
-            // 如果是关闭状态，就打开它
+            // 打开状态
             sidebar.style.width = sidebarWidth;
-            main.style.marginLeft = sidebarWidth; /* 主内容区向右推开 */
-            footer.style.marginLeft = sidebarWidth;
-            
+            main.style.marginLeft = sidebarWidth; 
+            footer.style.marginLeft = sidebarWidth; // 确保页脚向右推开
         }
     }
 </script>
