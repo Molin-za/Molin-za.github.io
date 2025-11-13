@@ -4,7 +4,7 @@
     <title>Molin的个人空间</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> 
     <style>
-        /* 基础样式 - 保留原有背景 */
+        /* 基础样式 - 保留原有背景和字体 */
         body {
             margin: 0;
             height: 100vh; 
@@ -13,65 +13,88 @@
             transition: margin-left 0.5s; /* 主内容区移动的动画 */
         }
 
-        /* 侧边栏样式 */
-        .sidebar {
-            height: 100%; /* 占满整个高度 */
-            width: 0; /* 默认隐藏 (宽度为 0) */
-            position: fixed; /* 固定位置 */
-            z-index: 10; /* 确保在最上层 */
+        /* 顶部导航栏样式 */
+        .top-navbar {
+            height: 50px; /* 白色条的高度 */
+            background-color: white; /* 白色背景 */
+            position: fixed; /* 固定在顶部 */
             top: 0;
             left: 0;
-            background-color: #333; /* 深色背景 */
-            overflow-x: hidden; /* 隐藏超出宽度的内容 */
-            transition: 0.5s; /* 关键：所有变化都有 0.5 秒的过渡动画 */
-            padding-top: 60px; /* 顶部留出空间 */
+            width: 100%;
+            z-index: 30; /* 确保在最顶层 */
+            display: flex; /* 使用 flex 布局 */
+            align-items: center; /* 垂直居中 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 添加一点阴影，增加层次感 */
+        }
+
+        /* 侧边栏样式 - 变为白色 */
+        .sidebar {
+            height: 100%; 
+            width: 0; 
+            position: fixed; 
+            z-index: 20; /* 确保在主内容和背景上方，但在顶部导航下方 */
+            top: 0;
+            left: 0;
+            background-color: white; /* 白色背景 */
+            overflow-x: hidden; 
+            transition: 0.5s; 
+            padding-top: 50px; /* 顶部导航栏的高度，避免遮挡 */
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* 侧边栏的阴影 */
         }
 
         /* 侧边栏中的链接样式 */
         .sidebar a {
-            padding: 8px 8px 8px 32px;
+            padding: 15px 8px 15px 32px; /* 增加上下 padding，更简洁 */
             text-decoration: none;
-            font-size: 20px;
-            color: #818181;
+            font-size: 18px; /* 字体稍微小一点，更精致 */
+            color: #333; /* 链接颜色变深 */
             display: block;
             transition: 0.3s;
         }
 
         /* 链接悬停效果 */
         .sidebar a:hover {
-            color: #f1f1f1;
-            background-color: #555;
+            color: #007bff; /* 悬停时蓝色 */
+            background-color: #f0f0f0; /* 悬停时浅灰色背景 */
         }
-
-        /* 侧边栏的关闭按钮 (可选，这里用开关按钮控制) */
-        .sidebar .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-
-        /* 开关侧边栏的按钮样式 */
+        
+        /* 开关侧边栏的简洁按钮样式 */
         .openbtn {
-            font-size: 20px;
+            font-size: 24px; /* 图标字体大小 */
             cursor: pointer;
-            background-color: #111;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            position: fixed; /* 固定在左上角 */
-            top: 10px;
-            left: 10px;
-            z-index: 20; /* 确保在侧边栏上方 */
+            background: none; /* 无背景 */
+            color: #333; /* 深色图标 */
+            padding: 0 15px; /* 调整内边距 */
+            border: none; /* 无边框 */
+            outline: none; /* 移除点击时的轮廓 */
+            height: 100%; /* 按钮高度与顶部导航栏一致 */
+            display: flex; /* 使得文本垂直居中 */
+            align-items: center;
         }
 
         .openbtn:hover {
-            background-color: #444;
+            background-color: #f0f0f0; /* 悬停时浅灰色背景 */
+        }
+
+        /* 主内容区域 */
+        #main {
+            padding: 20px;
+            margin-top: 50px; /* 留出顶部导航栏的高度 */
+            transition: margin-left 0.5s; /* 同样添加过渡动画 */
+        }
+
+        /* 响应式设计：当屏幕宽度较小时，侧边栏宽度可以小一点 */
+        @media screen and (max-height: 450px) {
+            .sidebar {padding-top: 15px;}
+            .sidebar a {font-size: 16px;}
         }
     </style>
 </head>
 <body>
+
+<div class="top-navbar">
+    <button class="openbtn" onclick="toggleNav()">☰</button> <span style="font-size:20px; color:#333; margin-left:15px;">Molin的个人空间</span>
+</div>
 
 <div id="mySidebar" class="sidebar">
     <a href="#">🏠 主页面</a>
@@ -80,28 +103,33 @@
     <a href="#">📚 其他</a>
 </div>
 
-<button class="openbtn" onclick="toggleNav()">☰ 打开/关闭菜单</button>  
-
 <div id="main">
     <h1>欢迎来到 Molin 的个人空间！</h1>
-    <p>点击左上角的按钮来开启或关闭侧边栏。</p>
-    </div>
+    <p>点击左上角的 ☰ 按钮来开启或关闭侧边栏。</p>
+    <p>这里将是你分享和记录的地方。你可以开始填充你的故事、想法和任何你想要展示的内容。</p>
+    <p>这个设计提供了更干净和现代的用户界面。当侧边栏打开时，主内容区域会向右移动。</p>
+    <p>段落 1: 这是一段占位文本，用于展示页面的基本布局。侧边栏的白色背景和顶部导航栏的白色背景现在统一，提供了一个更简洁的视觉体验。我们的目标是创建一个既美观又实用的个人网站。</p>
+    <p>段落 2: 响应式设计是现代网页不可或缺的一部分。虽然当前的布局相对简单，但我们已经考虑了侧边栏在不同屏幕尺寸下的表现。随着内容的增加，我们可能需要进一步优化布局以适应移动设备。</p>
+    <p>段落 3: 很高兴你能一步步地构建自己的在线空间。GitHub Pages 是一个非常强大的工具，能够免费托管你的静态网站。不断尝试和迭代是学习的最佳方式。</p>
+    <p>段落 4: 接下来，你可以考虑如何填充这些菜单项，比如为“记录”页面创建一个博客或者日记功能，或者在“梦话”页面分享一些有趣的思考。甚至可以考虑添加一些图片或者视频来丰富内容。</p>
+</div>
 
 <script>
     /* JavaScript 代码控制开关 */
     function toggleNav() {
         const sidebar = document.getElementById("mySidebar");
         const main = document.getElementById("main");
-        
+        const sidebarWidth = '250px'; // 侧边栏打开时的宽度
+
         // 检查侧边栏当前的宽度
-        if (sidebar.style.width === '250px') {
+        if (sidebar.style.width === sidebarWidth) {
             // 如果是打开状态，就关闭它
             sidebar.style.width = '0';
             main.style.marginLeft = '0';
         } else {
             // 如果是关闭状态，就打开它
-            sidebar.style.width = '250px';
-            main.style.marginLeft = '250px'; /* 主内容区向右推开，避免内容被遮挡 */
+            sidebar.style.width = sidebarWidth;
+            main.style.marginLeft = sidebarWidth; /* 主内容区向右推开 */
         }
     }
 </script>
