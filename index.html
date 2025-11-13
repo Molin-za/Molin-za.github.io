@@ -133,7 +133,7 @@
 </div>
 
 <footer id="myFooter" class="footer">
-    © 2025 Molin's Personal Space | Powered by GitHub Pages | <a href="#" style="color:#666; text-decoration: none;">联系我</a>
+    © 2025 Molin's Personal Space | Powered by GitHub Pages | <a href="#" style="color:#666; text-decoration: none;">Love</a>
 </footer>
 
 
@@ -142,6 +142,7 @@
     function toggleNav() {
         const sidebar = document.getElementById("mySidebar");
         const main = document.getElementById("main");
+        const footer = document.getElementByID("myFooter");
         const sidebarWidth = '250px'; // 侧边栏打开时的宽度
 
         // 检查侧边栏当前的宽度
@@ -149,6 +150,7 @@
             // 如果是打开状态，就关闭它
             sidebar.style.width = '0';
             main.style.marginLeft = '0';
+            footer.style.marginLeft = '0';
         } else {
             // 如果是关闭状态，就打开它
             sidebar.style.width = sidebarWidth;
