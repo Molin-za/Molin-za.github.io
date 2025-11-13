@@ -1,54 +1,196 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Molin的个人空间</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> 
+
+    <style>
+        /* 2. 整体设计 */
+        body {
+            margin: 0;
+            padding: 0;
+            /* 背景渐变：上层天蓝色 (#87CEEB) 到下层白色 (#FFFFFF) */
+            background: linear-gradient(to bottom, #87CEEB, #FFFFFF);
+            min-height: 100vh; /* 确保背景覆盖整个视口 */
+            font-family: Arial, sans-serif;
+            transition: background 0.5s ease;
+        }
+
+        /* 顶部白色条 */
+        #header-bar {
+            position: fixed; /* 固定在顶部 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; /* 顶部条的高度 */
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+            z-index: 1000; /* 确保在最上层 */
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        /* 3. 侧边栏切换按钮样式 */
+        #sidebar-toggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            /* 简约 UI 风格 */
+            color: #333; 
+        }
+
+        /* 页面标题样式 */
+        #page-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 底部信息样式 */
+        #footer-bar {
+            text-align: center;
+            padding: 15px;
+            position: absolute; 
+            bottom: 0;
+            width: 100%;
+            /* 字体小、浅灰色 */
+            font-size: 12px;
+            color: #AAAAAA; 
+            box-sizing: border-box;
+        }
+
+        /* 侧边栏样式 */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px; /* 侧边栏宽度 */
+            height: 100vh;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            padding-top: 60px; /* 为顶部条留出空间 */
+            /* 初始时完全移出屏幕 (隐藏) */
+            transform: translateX(-250px); 
+            /* 动画：丝滑效果 */
+            transition: transform 0.3s ease-in-out; 
+        }
+
+        /* 侧边栏按钮样式 */
+        .nav-button {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        .nav-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 内容容器，需要跟随侧边栏移动 */
+        #content-container {
+            /* 初始时在原位 */
+            transform: translateX(0); 
+            transition: transform 0.3s ease-in-out;
+            position: relative; 
+            min-height: 100vh;
+        }
+
+
+        /* JS添加的类，用于打开侧边栏时的样式 */
+        /* 侧边栏打开时，侧边栏移入 */
+        body.sidebar-open #sidebar {
+            transform: translateX(0);
+        }
+
+        /* 侧边栏打开时，内容容器平移 */
+        body.sidebar-open #content-container {
+            transform: translateX(250px); /* 移动与侧边栏宽度一致 */
+        }
+        
+        /* 4. 主页面内容样式 */
+        #main-content {
+            padding-top: 50px; /* 为顶部条留出空间 */
+            padding-left: 20px; 
+            text-align: center; 
+            min-height: calc(100vh - 50px - 42px); 
+            box-sizing: border-box;
+        }
+
+        .main-title {
+            font-size: 48px;
+            color: #333;
+            margin-top: 10vh; 
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+    </style>
 </head>
 <body>
-    <aside id="sidebar">
-        <nav>
-            <a href="index.html" class="nav-item active">主页面</a>
-            <a href="jilu.html" class="nav-item">记录</a>
-            <a href="menghua.html" class="nav-item">梦话</a>
-            <a href="qita.html" class="nav-item">其他</a>
-        </nav>
-    </aside>
+    
+    <div id="header-bar">
+        <button id="sidebar-toggle" aria-label="Toggle Navigation">☰</button>
+        <span id="page-title">主页面</span> 
+    </div>
+
+    <nav id="sidebar">
+        <a href="#home" class="nav-button">主页面</a>
+        <a href="#records" class="nav-button">记录</a>
+        <a href="#dreams" class="nav-button">梦话</a>
+        <a href="#others" class="nav-button">其他</a>
+    </nav>
 
     <div id="content-container">
-        <header id="top-bar">
-            <button id="sidebar-toggle" aria-label="Toggle Navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <span id="page-title">主页面</span>
-        </header>
+        
+        <section id="main-content" class="page-section">
+            <h1 class="main-title">Molin的个人空间</h1>
+            <p class="subtitle">点击左上角查看目录</p>
+            <p class="subtitle">希望你能找到好东西</p>
+            <p class="subtitle">也希望我能找到好东西</p>
+        </section>
 
-        <main id="main-content" class="page-padding">
-            <section id="homepage">
-                <h1 class="main-title">Molin的个人空间</h1>
-                <p class="subtitle">点击左上角查看目录</p>
-                <p class="subtitle">希望你能找到好东西</p>
-                <p class="subtitle">也希望我能找到好东西</p>
-            </section>
-        </main>
-
-        <footer id="footer">
+        <footer id="footer-bar">
             2025 Molin's Personal Space | Powered by GitHub Pages | LOVE
         </footer>
     </div>
 
     <script>
-        const toggleBtn = document.getElementById('sidebar-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const contentContainer = document.getElementById('content-container');
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('sidebar-toggle');
+            const body = document.body;
 
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-            contentContainer.classList.toggle('shifted');
+            // 监听按钮点击事件
+            toggleButton.addEventListener('click', () => {
+                // 通过切换 body 上的一个类名 'sidebar-open' 来控制侧边栏和内容的移动
+                body.classList.toggle('sidebar-open');
+            });
+
+            // 侧边栏导航链接点击后关闭侧边栏
+            const navLinks = document.querySelectorAll('.nav-button');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // 如果侧边栏是打开的，就关闭它
+                    if (body.classList.contains('sidebar-open')) {
+                        body.classList.remove('sidebar-open');
+                    }
+                });
+            });
         });
     </script>
 </body>
