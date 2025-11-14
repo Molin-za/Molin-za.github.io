@@ -91,6 +91,50 @@
             .sidebar a {font-size: 16px;}
         }
 
+
+
+        /* 按钮容器 */
+        .button-grid {
+            display: grid;
+            /* 两列布局 */
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; /* 按钮之间的间距 */
+            margin-top: 20px;
+        }
+
+        /* 按钮样式 - 白色圆角矩形块 */
+        .grid-button {
+            background-color: white;
+            color: #333;
+            padding: 20px;
+            border-radius: 12px; /* 圆角 */
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none; /* 移除链接下划线 */
+            display: block; /* 确保链接块占据整个父容器 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 轻微阴影 */
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .grid-button:hover {
+            /* 鼠标悬停时的效果 */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* 针对小屏幕的媒体查询 */
+        @media screen and (max-width: 600px) {
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+            /* 可选：为了配合媒体查询，调整小屏幕侧边栏宽度 */
+            .sidebar {
+                width: 200px; 
+            }
+        }
+
         
 
     </style>
@@ -110,12 +154,16 @@
 </div>
 
 <div id="main">
-    <h1>其他！</h1>
-    <p>我还没写呢嘻嘻</p>
-    <p>我还没写呢嘻嘻</p>
-    <p>我还没写呢嘻嘻</p>
-    <p>我还没写呢嘻嘻</p>
-    <p>我还没写呢嘻嘻</p>
+    <div class="button-grid">
+        <a href="link1.html" class="grid-button">按钮 A - 跳转页面 1</a>
+        <a href="link2.html" class="grid-button">按钮 B - 跳转页面 2</a>
+        
+        <a href="link3.html" class="grid-button">按钮 C - 跳转页面 3</a>
+        <a href="link4.html" class="grid-button">按钮 D - 跳转页面 4</a>
+
+        <a href="link5.html" class="grid-button">按钮 E - 跳转页面 5</a>
+        <a href="link6.html" class="grid-button">按钮 F - 跳转页面 6</a>
+    </div>
 </div>
     
 <script>
