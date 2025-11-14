@@ -96,30 +96,27 @@
         /* 按钮容器 */
         .button-grid {
             display: grid;
-            /* 两列布局 */
             grid-template-columns: 1fr 1fr; 
-            gap: 15px; /* 按钮之间的间距 */
+            gap: 15px; 
             margin-top: 20px;
         }
 
-        /* 按钮样式 - 白色圆角矩形块 */
         .grid-button {
             background-color: white;
             color: #333;
             padding: 20px;
-            border-radius: 12px; /* 圆角 */
+            border-radius: 12px; 
             text-align: center;
             font-size: 16px;
             font-weight: bold;
-            text-decoration: none; /* 移除链接下划线 */
-            display: block; /* 确保链接块占据整个父容器 */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 轻微阴影 */
+            text-decoration: none; 
+            display: block; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
         }
 
         .grid-button:hover {
-            /* 鼠标悬停时的效果 */
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
@@ -129,7 +126,6 @@
             .button-grid {
                 grid-template-columns: 1fr;
             }
-            /* 可选：为了配合媒体查询，调整小屏幕侧边栏宽度 */
             .sidebar {
                 width: 200px; 
             }
@@ -155,7 +151,7 @@
 
 <div id="main">
     <div class="button-grid">
-        <a href="link1.html" class="grid-button">按钮 A - 跳转页面 1</a>
+        <a href="others/留言板.html" class="grid-button">留言</a>
         <a href="link2.html" class="grid-button">按钮 B - 跳转页面 2</a>
         
         <a href="link3.html" class="grid-button">按钮 C - 跳转页面 3</a>
