@@ -209,7 +209,7 @@
             'articles/post5.md',
             'articles/post6.md',
             'articles/post7.md',
-            // ... 继续添加您的文章文件 ...
+            // ... 继续添加文章 ...
         ];
 
         const ITEMS_PER_PAGE = 3; 
@@ -221,7 +221,7 @@
         async function loadAllArticles() {
             const reversedFiles = [...MD_FILES].reverse();
             const timestamp = new Date().getTime();
-            const fetchPromises = MD_FILES.map(file => 
+            const fetchPromises = reversedFiles.map(file => 
                 fetch(`${file}?t=${timestamp}`).then(res => {
                     if (!res.ok) throw new Error(`HTTP ${res.status}`);
                     return res.text();
@@ -297,5 +297,6 @@
 </body>
 
 </html>
+
 
 
