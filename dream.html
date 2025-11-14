@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molin的个人空间</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        /* === 基础样式 === */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #87CEEB, #FFFFFF); 
+            font-family: Arial, sans-serif;
+            transition: margin-left 0.5s;
+        }
+
+        /* === 顶部导航栏 === */
+        .top-navbar {
+            height: 50px;
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* === 侧边栏 === */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 20;
+            top: 0;
+            left: 0;
+            background-color: white;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 侧边栏中的链接 */
+        .sidebar a {
+            padding: 15px 8px 15px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #007bff;
+            background-color: #f0f0f0;
+        }
+
+        /* 开关侧边栏按钮 */
+        .openbtn {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            color: #333;
+            padding: 0 15px;
+            border: none;
+            outline: none;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .openbtn:hover {
+            background-color: #f0f0f0;
+        }
+
+
+        /* 当屏幕宽度较小时，侧边栏宽度可以小一点 */
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+            }
+
+            .sidebar a {
+                font-size: 16px;
+            }
+        }
+
+        /* === 页脚 === */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            width: 100%;
+            margin-top: 50px;
+            box-sizing: border-box;
+        }
+
+        /* === 主内容区 === */
+        #main {
+            padding: 20px;
+            margin-top: 50px; 
+            min-height: calc(100vh - 120px);
+            transition: margin-left 0.5s;
+        }        
+        
+        /* --- 文章卡片样式 --- */
+        .article-card {
+            background-color: white;
+            border-radius: 12px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 25px; 
+            transition: transform 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        #card-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card img {
+        max-width: 100%; 
+        height: auto;
+        display: block;  
+        margin: 15px 0;  
+        }
+
+        /* --- 页码样式 --- */
+        .pagination-controls {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .page-button {
+            background-color: white;
+            border: 1px solid #ccc;
+            color: #333;
+            padding: 8px 15px;
+            margin: 0 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .page-button:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
+
+        .page-button.active {
+            background-color: #87CEEB; 
+            color: white;
+            border-color: #87CEEB;
+            cursor: default;
+        }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> 
+</head>
+<body>
+
+    <div class="top-navbar">
+        <button class="openbtn" onclick="toggleNav()">☰</button> <span style="font-size:20px; color:#333; margin-left:15px;">梦话</span>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="index.html"> 主页面</a>
+        <a href="write.html"> 记录</a>
+        <a href="dream.html"> 梦话</a>
+        <a href="other.html"> 其他</a>
+        <a href="about.html"> 关于</a>
+    </div>
+
+    <div id="main">
+        <div id="card-container">
+            <p>正在加载文章列表...</p>
+        </div>
+        
+        <div id="pagination-controls" class="pagination-controls">
+            </div>
+    </div>
+
+    <footer class="footer">
+        © 2025 Molin's Personal Space | Powered by GitHub Pages | <a href="#" style="color:#666; text-decoration: none;">LOVE</a>
+    </footer>
+
+
+    <script>
+        /* === 侧边栏代码控制开关 === */
+        function toggleNav() {
+            const sidebar = document.getElementById("mySidebar");
+            const main = document.getElementById("main");
+            const sidebarWidth = '250px';
+
+            if (sidebar.style.width === sidebarWidth) {
+                sidebar.style.width = '0';
+                main.style.marginLeft = '0';
+            } else {
+                sidebar.style.width = sidebarWidth;
+                main.style.marginLeft = sidebarWidth;
+            }
+        }
+        
+        const MD_FILES = [
+            'dreams/D1.md'
+            // ... 继续添加文章，加逗号！！！！！！！！！！！！！！！！！！！！！ ...
+        ];
+
+        const ITEMS_PER_PAGE = 3; 
+        let currentPage = 1;
+        let allCards = []; 
+
+
+        // 批量加载和渲染卡片
+        async function loadAllArticles() {
+            const reversedFiles = [...MD_FILES].reverse();
+            const timestamp = new Date().getTime();
+            const fetchPromises = reversedFiles.map(file => 
+                fetch(`${file}?t=${timestamp}`).then(res => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.text();
+                }).catch(e => {
+                    console.error(`加载 ${file} 失败:`, e);
+                    return `加载失败: ${file}`;
+                })
+            );
+
+            const markdownTexts = await Promise.all(fetchPromises);
+            const container = document.getElementById('card-container');
+            container.innerHTML = ''; 
+
+            markdownTexts.forEach((mdText, index) => {
+                if (mdText.startsWith('加载失败')) {
+                    // 如果文件加载失败，显示错误卡片
+                    const errorCard = `<div class="article-card" style="border: 2px solid #d9534f; color: #d9534f;">
+                                        <h1>内容加载失败</h1>
+                                        <p>${mdText}</p>
+                                    </div>`;
+                    allCards.push(errorCard);
+                } else {
+                    const htmlContent = marked.parse(mdText);
+                    const cardHtml = `<div class="article-card">${htmlContent}</div>`;
+                    allCards.push(cardHtml);
+                }
+            });
+            
+            displayPage(currentPage);
+            renderPaginationControls();
+        }
+
+        // 显示特定页面的卡片
+        function displayPage(page) {
+            currentPage = page;
+            const container = document.getElementById('card-container');
+            container.innerHTML = ''; 
+
+            const start = (page - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+
+            const cardsToShow = allCards.slice(start, end);
+            container.innerHTML = cardsToShow.join('');
+            
+            renderPaginationControls();
+
+            document.getElementById('main').scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+        }
+
+
+        // 页码按钮
+        function renderPaginationControls() {
+            const totalPages = Math.ceil(allCards.length / ITEMS_PER_PAGE);
+            const controls = document.getElementById('pagination-controls');
+            controls.innerHTML = ''; 
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.className = `page-button ${i === currentPage ? 'active' : ''}`;
+                button.textContent = i;
+                button.onclick = () => displayPage(i); 
+                controls.appendChild(button);
+            }
+        }
+
+        window.onload = function() {
+            window.scrollTo(0, 0);
+            loadAllArticles();
+        };
+
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
