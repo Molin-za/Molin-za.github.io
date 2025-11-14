@@ -219,6 +219,7 @@
 
         // 批量加载和渲染卡片
         async function loadAllArticles() {
+            const reversedFiles = [...MD_FILES].reverse();
             const timestamp = new Date().getTime();
             const fetchPromises = MD_FILES.map(file => 
                 fetch(`${file}?t=${timestamp}`).then(res => {
@@ -296,4 +297,5 @@
 </body>
 
 </html>
+
 
